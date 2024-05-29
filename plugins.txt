@@ -1,2 +1,3 @@
 nomad-measurements
 nomad-material-processing
+git+https://github.com/fabianschoeppach/nomad-UIBK-plugin@main
