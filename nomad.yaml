@@ -25,10 +25,17 @@ elastic:
     materials_index: nomad_oasis_materials_v1
 
 plugins:
-  options:
-    schemas/nomad_material_processing:
-      python_package: nomad_material_processing
-    schemas/nomad_measurements:
-      python_package: nomad_measurements
-    parsers/nomad_measurements/xrd:
-      python_package: nomad_measurements.xrd.parser
+  entry_points:
+    include: [
+      "nomad_uibk_plugin.parsers:xrfparser",
+      "nomad_uibk_plugin.schema_packages:xrfschema",
+      "schemas/nomad_material_processing",
+      "schemas/nomad_measurements"
+    ]
+    options:
+      schemas/nomad_material_processing:
+        python_package: nomad_material_processing
+      schemas/nomad_measurements:
+        python_package: nomad_measurements
+      parsers/nomad_measurements/xrd:
+        python_package: nomad_measurements.xrd.parser
