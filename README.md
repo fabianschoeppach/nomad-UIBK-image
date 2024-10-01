@@ -82,39 +82,100 @@ To run the new image you can follow steps 5. and 6. [above](#for-a-new-oasis).
 
 ## Adding a plugin
 
-To add a new plugin to the docker image you should add it to the [plugins.txt](plugins.txt) file.
+To add a new plugin to the docker image you should add it to the plugins table in the [`pyproject.toml`](pyproject.toml) file.
 
 Here you can put either plugins distributed to PyPI, e.g.
+
+```toml
+[project.optional-dependencies]
+plugins = [
+  "nomad-material-processing>=1.0.0",
+]
 ```
-nomad-material-processing
-```
+
 or plugins in a git repository with either the commit hash
+
+```toml
+[project.optional-dependencies]
+plugins = [
+  "nomad-measurements @ git+https://github.com/FAIRmat-NFDI/nomad-measurements.git@71b7e8c9bb376ce9e8610aba9a20be0b5bce6775",
+]
 ```
-git+https://github.com/FAIRmat-NFDI/nomad-measurements.git@71b7e8c9bb376ce9e8610aba9a20be0b5bce6775
-```
+
 or with a tag
+
+```toml
+[project.optional-dependencies]
+plugins = [
+  "nomad-measurements @ git+https://github.com/FAIRmat-NFDI/nomad-measurements.git@v0.0.4"
+]
 ```
-git+https://github.com/FAIRmat-NFDI/nomad-measurements.git@v0.0.4
-```
+
 To add a plugin in a subdirectory of a git repository you can use the `subdirectory` option, e.g.
-```
-git+https://github.com/FAIRmat-NFDI/AreaA-data_modeling_and_schemas.git@30fc90843428d1b36a1d222874803abae8b1cb42#subdirectory=PVD/PLD/jeremy_ikz/ikz_pld_plugin
-```
 
-If the plugin is new, you also need to add it under `plugins` in the [nomad.yaml](nomad.yaml)
-config file that will be included in the image.
-For example, if you have added a schema plugin `nomad_material_processing` you should add 
-the following:
-
-```yaml
-plugins:
-  options:
-    schemas/nomad_material_processing:
-      python_package: nomad_material_processing
+```toml
+[project.optional-dependencies]
+plugins = [
+  "ikz_pld_plugin @ git+https://github.com/FAIRmat-NFDI/AreaA-data_modeling_and_schemas.git@30fc90843428d1b36a1d222874803abae8b1cb42#subdirectory=PVD/PLD/jeremy_ikz/ikz_pld_plugin"
+]
 ```
 
-Once the changes have been committed to the main branch, the new image will automatically 
+Once the changes have been committed to the main branch, the new image will automatically
 be generated.
+
+## The Jupyter image
+
+In addition to the Docker image for running the oasis, this repository also builds a custom NORTH image for running a jupyter hub with the installed plugins.
+This image has been added to the [`configs/nomad.yaml`](configs/nomad.yaml) during the initialization of this repository and should therefore already be available in your Oasis under "Analyze / NOMAD Remote Tools Hub / jupyter"
+
+The image is quite large and might cause a timeout the first time it is run. In order to avoid this you can pre pull the image with:
+
+```
+docker pull ghcr.io/fairmat-nfdi/nomad-distribution-template/jupyter:main
+```
+
+If you want additional python packages to be available to all users in the jupyter hub you can add those to the jupyter table in the [`pyproject.toml`](pyproject.toml):
+
+```toml
+[project.optional-dependencies]
+jupyter = [
+  "voila",
+  "ipyaggrid",
+  "ipysheet",
+  "ipydatagrid",
+  "jupyter-flex",
+]
+```
+
+
+## Updating the distribution from the template
+
+In order to update an existing distribution with any potential changes in the template you can add a new `git remote` for the template and merge with that one while allowing for unrelated histories:
+
+```
+git remote add template https://github.com/FAIRmat-NFDI/nomad-distribution-template
+git fetch template
+git merge template/main --allow-unrelated-histories
+```
+
+Most likely this will result in some merge conflicts which will need to be resolved. At the very least the `Dockerfile` and GitHub workflows should be taken from "theirs":
+
+```
+git checkout --theirs Dockerfile
+git checkout --theirs .github/workflows/docker-publish.yml
+```
+
+For detailed instructions on how to resolve the merge conflicts between different version we refer you to the latest template release [notes](https://github.com/FAIRmat-NFDI/nomad-distribution-template/releases/latest)
+
+Once the merge conflicts are resolved you should add the changes and commit them
+
+```
+git add -A
+git commit -m "Updated to new distribution version"
+```
+
+Ideally all workflows should be triggered automatically but you might need to run the initialization one manually by navigating to the "Actions" tab at the top, clicking "Template Repository Initialization" on the left side, and triggering it by clicking "Run workflow" under the "Run workflow" button on the right.
+
 
 ## FAQ/Trouble shooting
 
