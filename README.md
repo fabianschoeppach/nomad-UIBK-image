@@ -183,7 +183,7 @@ git checkout --theirs Dockerfile
 git checkout --theirs .github/workflows/docker-publish.yml
 ```
 
-For detailed instructions on how to resolve the merge conflicts between different version we refer you to the latest template release [notes](https://github.com/FAIRmat-NFDI/nomad-distribution-template/releases/latest)
+For detailed instructions on how to resolve the merge conflicts between different version we refer you to the latest [template release notes](https://github.com/FAIRmat-NFDI/nomad-distribution-template/releases/latest).
 
 Once the merge conflicts are resolved you should add the changes and commit them
 
