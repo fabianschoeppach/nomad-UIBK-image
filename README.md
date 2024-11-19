@@ -1,8 +1,8 @@
-![docker image](https://github.com/fabianschoeppach/nomad-UIBK-image/actions/workflows/docker-publish.yml/badge.svg)
+<img src="assets/nomad_oasis_logo.png" alt="NOMAD Oasis Logo" width="200">
 
 # NOMAD Oasis Distribution
 
-<img src="assets/nomad_oasis_logo.png" alt="NOMAD Oasis Logo" width="200">
+![docker image](https://github.com/fabianschoeppach/nomad-UIBK-image/actions/workflows/docker-publish.yml/badge.svg)
 
 This is an distribution image of a [NOMAD Oasis](https://nomad-lab.eu/nomad-lab/nomad-oasis.html) provided by [FAIRmat](https://github.com/FAIRmat-NFDI).
 Below are instructions on how to [deploy this distribution](#deploying-the-distribution)
