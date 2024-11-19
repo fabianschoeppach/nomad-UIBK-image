@@ -2,7 +2,7 @@
 
 # NOMAD Oasis Distribution
 
-<img src="assets/nomad_plugin_logo.png" alt="NOMAD Oasis Logo" width="200">
+<img src="assets/nomad_oasis_logo.png" alt="NOMAD Oasis Logo" width="200">
 
 This is an distribution image of a [NOMAD Oasis](https://nomad-lab.eu/nomad-lab/nomad-oasis.html) provided by [FAIRmat](https://github.com/FAIRmat-NFDI).
 Below are instructions on how to [deploy this distribution](#deploying-the-distribution)
@@ -209,5 +209,5 @@ Ideally all workflows should be triggered automatically but you might need to ru
 
 Funding for this work has been provided by the European Union as part of the SolMates project (Project Nr. 101122288).
 
-<img src="docs/assets/eu_funding_logo.png" alt="EU Funding Logo" width="300">
-<img src="docs/assets/solmates_logo.png" alt="SolMates Logo" width="300">
+<img src="assets/eu_funding_logo.png" alt="EU Funding Logo" width="300">
+<img src="assets/solmates_logo.png" alt="SolMates Logo" width="300">
