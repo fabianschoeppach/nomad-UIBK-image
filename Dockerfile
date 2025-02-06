@@ -30,6 +30,7 @@ RUN apt-get update \
        unzip \
        nodejs \
        libgl1 \
+       libglib2.0-0 \
        npm \
        && npm install -g configurable-http-proxy@^4.2.0 \
        # clean cache and logs
