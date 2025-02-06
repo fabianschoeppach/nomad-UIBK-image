@@ -29,6 +29,7 @@ RUN apt-get update \
        zip \
        unzip \
        nodejs \
+       libgl1 \
        npm \
        && npm install -g configurable-http-proxy@^4.2.0 \
        # clean cache and logs
@@ -98,9 +99,6 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 COPY scripts ./scripts
 
 FROM base_final AS final
-
-# manually install libgl1, needed for the use of openCV in defect recognition
-RUN apt-get update && apt-get install libgl1
 
 COPY --chown=nomad:1000 --from=builder /opt/venv /opt/venv
 COPY --chown=nomad:1000 scripts/run.sh .
